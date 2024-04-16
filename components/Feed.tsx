@@ -39,14 +39,24 @@ function Feed({}: Props) {
     setSearchText(e.target.value);
   };
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
-      setPosts(data);
-    };
     fetchPosts();
   }, []);
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
+    setPosts(data);
+  };
+  useEffect(() => {
+    if (searchText && searchText.length > 0) {
+      const getData = setTimeout(async () => {
+        const response = await fetch(`/api/search/${searchText}`);
+        const data = await response.json();
+        setPosts(data);
+      }, 500);
 
+      return () => clearTimeout(getData);
+    } else fetchPosts();
+  }, [searchText]);
   return (
     <section className="feed">
       <form className="relative w-full flec-center">
@@ -59,7 +69,10 @@ function Feed({}: Props) {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList
+        data={posts}
+        handleTagClick={(tag) => setSearchText(tag)}
+      />
     </section>
   );
 }

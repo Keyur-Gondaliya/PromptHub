@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Post } from "./Feed";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type Props = {
   post: Post;
@@ -16,6 +16,7 @@ type Props = {
 function PromptCard({ post, handleTagClick, handleEdit, handleDelete }: Props) {
   const pathName = usePathname();
   const { data: session } = useSession();
+  const router = useRouter();
   const [copied, setcopied] = useState<string>("");
   const handleCopy = () => {
     setcopied(post.prompt);
@@ -27,7 +28,12 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }: Props) {
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+        <div
+          className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
+          onClick={() => {
+            router.push(`/profile/${post.creator._id}`);
+          }}
+        >
           <Image
             src={post.creator.image}
             alt="user_image"
@@ -64,22 +70,23 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }: Props) {
       >
         #{post.tag}
       </p>
-      {session?.user.id === post.creator._id && pathName === "/profile" && (
-        <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
-          <p
-            className="font-inter text-sm green_gradient cursor-pointer"
-            onClick={() => handleEdit && handleEdit(post)}
-          >
-            Edit
-          </p>
-          <p
-            className="font-inter text-sm orange_gradient cursor-pointer"
-            onClick={() => handleDelete && handleDelete(post)}
-          >
-            Delete
-          </p>
-        </div>
-      )}
+      {session?.user.id === post.creator._id &&
+        pathName.includes("/profile") && (
+          <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+            <p
+              className="font-inter text-sm green_gradient cursor-pointer"
+              onClick={() => handleEdit && handleEdit(post)}
+            >
+              Edit
+            </p>
+            <p
+              className="font-inter text-sm orange_gradient cursor-pointer"
+              onClick={() => handleDelete && handleDelete(post)}
+            >
+              Delete
+            </p>
+          </div>
+        )}
     </div>
   );
 }
