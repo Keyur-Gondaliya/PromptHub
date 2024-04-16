@@ -10,7 +10,7 @@ interface Post {
   prompt: string;
   tag: string;
 }
-function page({}: Props) {
+function CreatePrompt({}: Props) {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [post, setPost] = useState<Post>({ prompt: "", tag: "" });
   const { data: session } = useSession();
@@ -49,4 +49,4 @@ function page({}: Props) {
   );
 }
 
-export default page;
+export default CreatePrompt;

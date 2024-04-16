@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 type Props = {};
 
-function page({}: Props) {
+function ProfilePage({}: Props) {
   const { data: session } = useSession();
   const [posts, setPosts] = useState<Post[]>([]);
   const router = useRouter();
@@ -43,7 +43,7 @@ function page({}: Props) {
   return (
     <Profile
       name="My"
-      desc="Welcom to your personalized profile page"
+      desc="Welcom to your personalized profile Page"
       data={posts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
@@ -51,4 +51,4 @@ function page({}: Props) {
   );
 }
 
-export default page;
+export default ProfilePage;
