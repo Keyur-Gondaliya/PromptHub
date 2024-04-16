@@ -9,6 +9,7 @@ export interface Post {
     username: string;
     image: string;
     email: string;
+    _id: string;
   };
   _id: string;
 }
@@ -24,8 +25,6 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
           key={post._id}
           post={post}
           handleTagClick={handleTagClick}
-          handleDelete={() => {}}
-          handleEdit={() => {}}
         />
       ))}
     </div>

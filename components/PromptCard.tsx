@@ -3,15 +3,19 @@
 import Image from "next/image";
 import { Post } from "./Feed";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 type Props = {
   post: Post;
-  handleTagClick: (tag: string) => void;
-  handleEdit: (tag: string) => void;
-  handleDelete: (tag: string) => void;
+  handleTagClick?: (tag: string) => void;
+  handleEdit?: (post: Post) => void;
+  handleDelete?: (post: Post) => void;
 };
 
 function PromptCard({ post, handleTagClick, handleEdit, handleDelete }: Props) {
+  const pathName = usePathname();
+  const { data: session } = useSession();
   const [copied, setcopied] = useState<string>("");
   const handleCopy = () => {
     setcopied(post.prompt);
@@ -56,10 +60,26 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }: Props) {
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
       <p
         className="font-inter text-sm blue_gradient cursor-pointer"
-        onClick={() => handleTagClick(post.tag)}
+        onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
         #{post.tag}
       </p>
+      {session?.user.id === post.creator._id && pathName === "/profile" && (
+        <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+          <p
+            className="font-inter text-sm green_gradient cursor-pointer"
+            onClick={() => handleEdit && handleEdit(post)}
+          >
+            Edit
+          </p>
+          <p
+            className="font-inter text-sm orange_gradient cursor-pointer"
+            onClick={() => handleDelete && handleDelete(post)}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   );
 }

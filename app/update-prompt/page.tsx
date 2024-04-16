@@ -2,8 +2,8 @@
 
 import Form from "@components/Form";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type Props = {};
 interface Post {
@@ -15,16 +15,26 @@ function page({}: Props) {
   const [post, setPost] = useState<Post>({ prompt: "", tag: "" });
   const { data: session } = useSession();
   const Router = useRouter();
+  const searchParams = useSearchParams();
+  const promptId = searchParams.get("id");
+  useEffect(() => {
+    const fetchPost = async () => {
+      const response = await fetch(`/api/prompt/${promptId}`);
+      const data = await response.json();
+      setPost(data);
+    };
+    if (session && promptId) fetchPost();
+  }, [session, promptId]);
 
-  const createPrompt = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const editPrompt = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
+    if (!promptId) return alert("Prompt Id Not Found!");
     try {
-      const response = await fetch("/api/prompt/new", {
-        method: "POST",
+      const response = await fetch(`/api/prompt/${promptId}`, {
+        method: "PATCH",
         body: JSON.stringify({
           prompt: post.prompt,
-          userId: session?.user.id,
           tag: post.tag,
         }),
       });
@@ -40,11 +50,11 @@ function page({}: Props) {
 
   return (
     <Form
-      type="Create"
+      type="Edit"
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={createPrompt}
+      handleSubmit={editPrompt}
     />
   );
 }
