@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: "Share Secret Hack AI Prompts",
   twitter: { card: "summary_large_image" },
   verification: { google: process.env.GOOGLE_VERIFICATION_CONTENT },
+  alternates: { canonical: process.env.NEXTAUTH_URL },
 };
 
 export default function RootLayout({
