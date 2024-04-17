@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "@styles/globals.css";
 import Nav from "@components/Nav";
 import Provider from "@components/Provider";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,6 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="O5igg9HQGWljaCRtHF50WZHR7Tx2FMQTYYHj3ej-I3A"
+        />
+      </head>
       <body className={inter.className}>
         <Provider>
           <div className="main">
@@ -29,7 +35,6 @@ export default function RootLayout({
             {children}
           </main>
         </Provider>
-        <SpeedInsights />
       </body>
     </html>
   );
