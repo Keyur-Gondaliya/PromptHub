@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import ProfilePage from "./ProfilePage";
 // generatestaticparams (only when needed)
-export function generateStaticParams() {
-  return [{ user: "661ea8626e3fc7716bc19e52" }];
-}
+// export function generateStaticParams() {
+//   return [{ user: "661ea8626e3fc7716bc19e52" }];
+// }
 
 export async function generateMetadata({
   params: { user },
