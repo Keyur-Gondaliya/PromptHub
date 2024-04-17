@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (!data) return [];
   const userList: MetadataRoute.Sitemap = data
     .map(({ creator: { _id, updatedAt } }: Prop) => ({
-      url: `${process.env.NEXTAUTH_URL}/api/users/${_id}/posts`,
+      url: `${process.env.NEXTAUTH_URL}/profile/${_id}`,
       lastModified: updatedAt,
     }))
     .filter(
