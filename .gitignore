@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-/app/sitemap.xml
+/app/sitemap.ts
 # testing
 /coverage
 
