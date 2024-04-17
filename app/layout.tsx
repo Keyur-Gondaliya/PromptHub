@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXTAUTH_URL || ""),
   title: {
-    default: "PromptHub | Unlock Your AI Potential with Abundance AI Prompts",
+    default: "PromptHub | Unlock Your AI Potential with Secret AI Prompts",
     template: "%s | PromptHub",
   },
   description:
