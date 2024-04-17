@@ -7,11 +7,12 @@ import Provider from "@components/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXTAUTH_URL || ""),
   title: { default: "PromptHub", template: "%s | PromptHub" },
   description: "Share Secret Hack AI Prompts",
   twitter: { card: "summary_large_image" },
   verification: { google: process.env.GOOGLE_VERIFICATION_CONTENT },
-  alternates: { canonical: process.env.NEXTAUTH_URL },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
