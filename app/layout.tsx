@@ -7,9 +7,9 @@ import Provider from "@components/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PromptHub",
-  description: "Share AI Hack Prompts",
-  icons: "/assets/images/logo.svg",
+  title: { default: "PromptHub", template: "%s | PromptHub" },
+  description: "Share Secret Hack AI Prompts",
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

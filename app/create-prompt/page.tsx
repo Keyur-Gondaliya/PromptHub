@@ -1,52 +1,11 @@
-"use client";
+import CreatePrompt from "./CreatePrompt";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Update Prompt",
+};
 
-import Form from "@components/Form";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-type Props = {};
-interface Post {
-  prompt: string;
-  tag: string;
-}
-function CreatePrompt({}: Props) {
-  const [submitting, setSubmitting] = useState<boolean>(false);
-  const [post, setPost] = useState<Post>({ prompt: "", tag: "" });
-  const { data: session } = useSession();
-  const Router = useRouter();
-
-  const createPrompt = async (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const response = await fetch("/api/prompt/new", {
-        method: "POST",
-        body: JSON.stringify({
-          prompt: post.prompt,
-          userId: session?.user.id,
-          tag: post.tag,
-        }),
-      });
-      if (response.ok) {
-        Router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <Form
-      type="Create"
-      post={post}
-      setPost={setPost}
-      submitting={submitting}
-      handleSubmit={createPrompt}
-    />
-  );
+function CreatePromptContainer() {
+  return <CreatePrompt />;
 }
 
-export default CreatePrompt;
+export default CreatePromptContainer;
