@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | PromptHub",
   },
   description:
-    "The PromptHub is a collection of prompts that are useful to test the capabilities of LLMs on a variety of fundamental capabilities and complex tasks. We hope the Prompt Hub helps you discover interesting ways to leverage, experiment, and build with LLMs. We encourage and welcome contributions from the AI research and developer community.",
+    "Discover diverse prompts to test and enhance LLM capabilities! Explore the PromptHub for AI research and development. #AI #PromptHub",
   twitter: { card: "summary_large_image" },
   verification: { google: process.env.GOOGLE_VERIFICATION_CONTENT },
   alternates: { canonical: "/" },
