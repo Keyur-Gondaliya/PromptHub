@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: { default: "PromptHub", template: "%s | PromptHub" },
   description: "Share Secret Hack AI Prompts",
   twitter: { card: "summary_large_image" },
+  verification: { google: process.env.GOOGLE_VERIFICATION_CONTENT },
 };
 
 export default function RootLayout({
@@ -19,12 +20,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="google-site-verification"
-          content="O5igg9HQGWljaCRtHF50WZHR7Tx2FMQTYYHj3ej-I3A"
-        />
-      </head>
       <body className={inter.className}>
         <Provider>
           <div className="main">
