@@ -17,6 +17,11 @@ export async function generateMetadata({
     title: data[0].creator.username,
     description: `PromptHub ${data[0].tag} ${data[0].prompt}`,
     openGraph: { images: [{ url: data[0].creator.image }] },
+    twitter: {
+      images: [{ url: data[0].creator.image }],
+      title: data[0].creator.username,
+      description: `PromptHub ${data[0].tag} ${data[0].prompt}`,
+    },
   };
 }
 
