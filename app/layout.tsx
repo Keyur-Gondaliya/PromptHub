@@ -8,8 +8,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXTAUTH_URL || ""),
-  title: { default: "PromptHub", template: "%s | PromptHub" },
-  description: "Share Secret Hack AI Prompts",
+  title: {
+    default:
+      "PromptHub | Unleash Your AI Potential with PromptHub: Access an Abundance of AI Prompts",
+    template: "%s | PromptHub",
+  },
+  description:
+    "The PromptHub is a collection of prompts that are useful to test the capabilities of LLMs on a variety of fundamental capabilities and complex tasks. We hope the Prompt Hub helps you discover interesting ways to leverage, experiment, and build with LLMs. We encourage and welcome contributions from the AI research and developer community.",
   twitter: { card: "summary_large_image" },
   verification: { google: process.env.GOOGLE_VERIFICATION_CONTENT },
   alternates: { canonical: "/" },

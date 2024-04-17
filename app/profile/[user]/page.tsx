@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   return {
     title: data[0].creator.username,
-    description: data[0].tag + " " + data[0].prompt,
+    description: `PromptHub ${data[0].tag} ${data[0].prompt}`,
     openGraph: { images: [{ url: data[0].creator.image }] },
   };
 }
