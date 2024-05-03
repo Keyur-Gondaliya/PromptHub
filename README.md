@@ -1,4 +1,4 @@
-# PromptHub Readme
+# PromptHub
 
 PromptHub is a platform designed for sharing AI prompts with a fully SEO-friendly website. It is built using the Next.js framework for the frontend and a Node.js backend with TypeScript and MongoDB for the database. This README will guide you through the setup and usage of PromptHub.
 
