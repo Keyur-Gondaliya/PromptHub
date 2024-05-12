@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import PromptCard from "./PromptCard";
+import Spinner from "./Spinner";
 export interface Post {
   prompt: string;
   tag: string;
@@ -34,6 +35,7 @@ type Props = {};
 
 function Feed({}: Props) {
   const [searchText, setSearchText] = useState<string>("");
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -42,16 +44,31 @@ function Feed({}: Props) {
     fetchPosts();
   }, []);
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
-    const data = await response.json();
-    setPosts(data);
+    try {
+      setIsLoaded(false);
+      const response = await fetch("/api/prompt");
+      const data = await response.json();
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoaded(true);
+    }
   };
   useEffect(() => {
     if (searchText && searchText.length > 0) {
       const getData = setTimeout(async () => {
-        const response = await fetch(`/api/search/${searchText}`);
-        const data = await response.json();
-        setPosts(data);
+        try {
+          setIsLoaded(false);
+
+          const response = await fetch(`/api/search/${searchText}`);
+          const data = await response.json();
+          setPosts(data);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoaded(true);
+        }
       }, 500);
 
       return () => clearTimeout(getData);
@@ -69,10 +86,16 @@ function Feed({}: Props) {
           className="search_input peer"
         />
       </form>
-      <PromptCardList
-        data={posts}
-        handleTagClick={(tag) => setSearchText(tag)}
-      />
+      {isLoaded ? (
+        <PromptCardList
+          data={posts}
+          handleTagClick={(tag) => setSearchText(tag)}
+        />
+      ) : (
+        <div role="status" className="mt-20">
+          <Spinner />
+        </div>
+      )}
     </section>
   );
 }

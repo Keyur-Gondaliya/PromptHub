@@ -12,12 +12,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
+import Spinner from "./Spinner";
 
 type Props = {};
 
 function Nav({}: Props) {
   const { data: session } = useSession();
   const [toggleDropdown, setToggleDropdown] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
@@ -29,6 +31,7 @@ function Nav({}: Props) {
         ClientSafeProvider
       > | null = await getProviders();
       setProviders(providers);
+      setIsLoaded(true);
     };
     setProvidersFn();
   }, []);
@@ -70,7 +73,8 @@ function Nav({}: Props) {
           </div>
         ) : (
           <>
-            {providers &&
+            {isLoaded ? (
+              providers &&
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
@@ -80,7 +84,12 @@ function Nav({}: Props) {
                 >
                   Sign in
                 </button>
-              ))}
+              ))
+            ) : (
+              <div role="status" className="mr-8">
+                <Spinner />
+              </div>
+            )}
           </>
         )}
       </div>
